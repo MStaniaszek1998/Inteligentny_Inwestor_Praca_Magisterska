@@ -1,0 +1,2 @@
+# Inteligentny_Inwestor_Praca_Magisterska
+Kody źródłowe do pracy magisterskiej Inteligentny Inwestor
