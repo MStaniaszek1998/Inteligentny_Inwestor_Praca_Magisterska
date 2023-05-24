@@ -1,0 +1,51 @@
+version: "3.5"
+
+services:
+  scraper-parser-nasdaq:
+    container_name: preprod_orchestrator_nasdaq
+    environment:
+      - DDINVESTOR=/data/
+    build:
+      context: ../..
+      dockerfile: docker/scraper-parser/Dockerfile
+    volumes:
+      - type: volume
+        source: preprod_data_collector
+        target: /data
+    shm_size: '8gb'
+    command: >
+      bash -c "python3 -u /data_collector/general_orchestrator.py --domain-orchestrator 1 -s 0"
+
+  scraper-parser-yahoo:
+    container_name: preprod_orchestrator_yahoo
+    environment:
+      - DDINVESTOR=/data/
+    build:
+      context: ../..
+      dockerfile: docker/scraper-parser/Dockerfile
+    volumes:
+      - type: volume
+        source: preprod_data_collector
+        target: /data
+    shm_size: '8gb'
+    command: >
+      bash -c "python3 -u /data_collector/general_orchestrator.py --domain-orchestrator 2 -s 0"
+
+  scraper-parser-bizinsider:
+    container_name: preprod_orchestrator_bizinsider
+    environment:
+      - DDINVESTOR=/data/
+    build:
+      context: ../..
+      dockerfile: docker/scraper-parser/Dockerfile
+    volumes:
+      - type: volume
+        source: preprod_data_collector
+        target: /data
+    shm_size: '8gb'
+    command: >
+      bash -c "python3 -u /data_collector/general_orchestrator.py --domain-orchestrator 3 -s 0"
+
+volumes:
+  preprod_data_collector:
+    external: true

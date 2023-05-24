@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  scraper-parser-day-zero:
+    container_name: preprod_orchestrator_day_zero
+    environment:
+      - DDINVESTOR=/data/
+    build:
+      context: ../..
+      dockerfile: docker/scraper-parser/Dockerfile
+    volumes:
+      - type: volume
+        source: preprod_data_collector
+        target: /data
+    shm_size: '8gb'
+    command: >
+      bash -c "cd /data &&
+             yamldirs /data_collector/configs/folder_structure.yaml &&
+             python3 -u /data_collector/general_orchestrator.py --domain-orchestrator 0"
+volumes:
+  preprod_data_collector:
+    external: true

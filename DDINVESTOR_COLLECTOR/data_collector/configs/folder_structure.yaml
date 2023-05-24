@@ -1,0 +1,12 @@
+data_collector:
+    loggers:
+    nasdaq: &Default
+        current:
+        metadata:
+        history:
+    yahoo:
+        << : *Default
+    business_insider:
+        << : *Default
+    multisource:
+        <<: *Default
